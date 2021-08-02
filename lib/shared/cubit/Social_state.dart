@@ -12,3 +12,5 @@ class SocialGetUserErrorState extends SocialStates {
     required this.error,
   });
 }
+
+class SocialBottomNavState extends SocialStates {}
