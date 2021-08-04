@@ -11,7 +11,14 @@ class HomeScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            actions: [
+              IconButton(onPressed: () {}, icon: Icon(IconBroken.Search)),
+              IconButton(onPressed: () {}, icon: Icon(IconBroken.Notification)),
+            ],
+            title: Text(SocialCubit.get(context)
+                .titles[SocialCubit.get(context).currentIndex]),
+          ),
           body: SocialCubit.get(context)
               .screens[SocialCubit.get(context).currentIndex],
           /*Conditional.single(
