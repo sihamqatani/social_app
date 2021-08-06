@@ -19,9 +19,10 @@ class SocialCubit extends Cubit<SocialStates> {
     FeedScreen(),
     UserScreen(),
     ChatScreen(),
+    UserScreen(),
     SettingScreen()
   ];
-  List<String> titles = ['Feeds', 'Users', 'Chats', 'Setting'];
+  List<String> titles = ['Feeds', 'Users', 'Chats', 'Chats', 'Setting'];
   void changBottomNav(int index) {
     if (index == 3) {
       emit(SocialNewPostState());

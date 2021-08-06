@@ -35,6 +35,7 @@ class SocialApp extends StatelessWidget {
     return BlocProvider(
       create: (context) => SocialCubit()..getUserData(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         theme: themeApp,
         darkTheme: darkThemeApp,
         home: startWidget,
