@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:social_app/modules/new_post/new_post.dart';
+import 'package:social_app/shared/components/components.dart';
 import 'package:social_app/shared/cubit/Social_state.dart';
 import 'package:social_app/shared/cubit/social_cubit.dart';
-import 'package:social_app/shared/styles/icon_broken.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SocialCubit, SocialStates>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is SocialNewPostState) {
+          navigateTo(context, NewPostScreen());
+        }
+      },
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
             actions: [
-              IconButton(onPressed: () {}, icon: Icon(IconBroken.Search)),
-              IconButton(onPressed: () {}, icon: Icon(IconBroken.Notification)),
+              IconButton(onPressed: () {}, icon: Icon(Icons.search)),
+              IconButton(onPressed: () {}, icon: Icon(Icons.notifications)),
             ],
             title: Text(SocialCubit.get(context)
                 .titles[SocialCubit.get(context).currentIndex]),
@@ -63,13 +69,15 @@ class HomeScreen extends StatelessWidget {
               },
               items: [
                 BottomNavigationBarItem(
-                    icon: Icon(IconBroken.Home), label: 'Home'),
+                    icon: Icon(FontAwesomeIcons.home), label: 'Home'),
                 BottomNavigationBarItem(
-                    icon: Icon(IconBroken.User), label: 'Users'),
+                    icon: Icon(FontAwesomeIcons.user), label: 'Users'),
                 BottomNavigationBarItem(
-                    icon: Icon(IconBroken.Chat), label: 'Chat'),
+                    icon: Icon(FontAwesomeIcons.comment), label: 'Chats'),
                 BottomNavigationBarItem(
-                    icon: Icon(IconBroken.Setting), label: 'Setting'),
+                    icon: Icon(FontAwesomeIcons.fileUpload), label: 'Post'),
+                BottomNavigationBarItem(
+                    icon: Icon(FontAwesomeIcons.userEdit), label: 'Setting'),
               ]),
         );
       },

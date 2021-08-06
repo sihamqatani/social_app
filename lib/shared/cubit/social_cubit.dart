@@ -7,7 +7,7 @@ import 'package:social_app/models/social_user_model.dart';
 import 'package:social_app/modules/feeds/feeds.dart';
 import 'package:social_app/modules/setting/setting.dart';
 import 'package:social_app/modules/users/users.dart';
-import 'package:social_app/shared/constants.dart';
+import 'package:social_app/shared/constants/constants.dart';
 import 'package:social_app/shared/cubit/Social_state.dart';
 
 class SocialCubit extends Cubit<SocialStates> {
@@ -21,10 +21,14 @@ class SocialCubit extends Cubit<SocialStates> {
     ChatScreen(),
     SettingScreen()
   ];
-  List<String> titles = ['Home', 'Users', 'Chats', 'Setting'];
+  List<String> titles = ['Feeds', 'Users', 'Chats', 'Setting'];
   void changBottomNav(int index) {
-    currentIndex = index;
-    emit(SocialBottomNavState());
+    if (index == 3) {
+      emit(SocialNewPostState());
+    } else {
+      currentIndex = index;
+      emit(SocialBottomNavState());
+    }
   }
 
   void getUserData() {

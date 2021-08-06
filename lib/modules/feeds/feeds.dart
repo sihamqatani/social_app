@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class FeedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
+      //physics: Scr,
       child: Column(
         children: [
           Card(
               margin: EdgeInsets.all(8),
-              elevation: 10,
+              elevation: 5,
               clipBehavior: Clip.antiAliasWithSaveLayer,
               child:
                   Stack(alignment: AlignmentDirectional.bottomEnd, children: [
@@ -29,13 +31,17 @@ class FeedScreen extends StatelessWidget {
               ])),
           ListView.separated(
               shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
               separatorBuilder: (context, index) => SizedBox(
-                    height: 10,
+                    height: 5,
                   ),
               itemCount: 10,
               itemBuilder: (context, intdex) {
                 return buildPostItem(context);
-              })
+              }),
+          SizedBox(
+            height: 20,
+          )
         ],
       ),
     );
@@ -44,7 +50,7 @@ class FeedScreen extends StatelessWidget {
   Widget buildPostItem(context) {
     return Card(
       margin: EdgeInsets.symmetric(horizontal: 8),
-      elevation: 10,
+      elevation: 5,
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -70,7 +76,7 @@ class FeedScreen extends StatelessWidget {
                             'Soma Abdullah',
                             style: Theme.of(context)
                                 .textTheme
-                                .subtitle2
+                                .subtitle1
                                 ?.copyWith(height: 1.4),
                           ),
                           SizedBox(
@@ -107,26 +113,22 @@ class FeedScreen extends StatelessWidget {
                 color: Colors.grey[400],
               ),
             ),
-            Text(
-                'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.'),
-            Wrap(
-              spacing: 2,
-              children: [
-                Container(
-                  height: 20,
-                  child: MaterialButton(
-                    child: Text(
-                      '#Software',
-                      style: TextStyle(color: Colors.blue),
-                    ),
-                    onPressed: () {},
-                    minWidth: 1,
-                  ),
-                ),
-                Container(
-                  height: 20,
-                  child: TextButton(
-                    onPressed: () {},
+            Padding(
+              padding: EdgeInsets.only(top: 5),
+              child: Text(
+                'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+                style: Theme.of(context).textTheme.subtitle2,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              child: Wrap(
+                spacing: 1,
+                children: [
+                  Container(
+                    height: 20,
+                    padding: EdgeInsets.zero,
+                    //width: double.infinity,
                     child: MaterialButton(
                       child: Text(
                         '#Software',
@@ -136,11 +138,8 @@ class FeedScreen extends StatelessWidget {
                       minWidth: 1,
                     ),
                   ),
-                ),
-                Container(
-                  height: 20,
-                  child: TextButton(
-                    onPressed: () {},
+                  Container(
+                    height: 20,
                     child: MaterialButton(
                       child: Text(
                         '#Software',
@@ -150,8 +149,19 @@ class FeedScreen extends StatelessWidget {
                       minWidth: 1,
                     ),
                   ),
-                ),
-              ],
+                  Container(
+                    height: 20,
+                    child: MaterialButton(
+                      child: Text(
+                        '#Software',
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                      onPressed: () {},
+                      minWidth: 1,
+                    ),
+                  ),
+                ],
+              ),
             ),
             Container(
               width: double.infinity,
@@ -164,7 +174,7 @@ class FeedScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(5)),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5),
+              padding: const EdgeInsets.symmetric(vertical: 10),
               child: Row(
                 children: [
                   Expanded(
@@ -173,9 +183,12 @@ class FeedScreen extends StatelessWidget {
                       child: Row(
                         children: [
                           Icon(
-                            Icons.favorite_border,
+                            FontAwesomeIcons.heart,
                             size: 15,
-                            color: Colors.grey,
+                            color: Colors.red[900],
+                          ),
+                          SizedBox(
+                            width: 5,
                           ),
                           Text('200',
                               style: Theme.of(context)
@@ -192,10 +205,11 @@ class FeedScreen extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Icon(
-                          Icons.chat,
+                          FontAwesomeIcons.comment,
                           size: 15,
-                          color: Colors.grey,
+                          color: Colors.red[900],
                         ),
+                        SizedBox(width: 5),
                         Text('100 comment',
                             style: Theme.of(context)
                                 .textTheme
@@ -207,41 +221,58 @@ class FeedScreen extends StatelessWidget {
                 ],
               ),
             ),
-            Row(
-              children: [
-                Row(
-                  children: [
-                    CircleAvatar(
-                      radius: 15,
-                      backgroundImage: NetworkImage(
-                          'https://as1.ftcdn.net/v2/jpg/02/96/20/94/1000_F_296209436_rSsK1SYwSv1NuKVxQXF0aAht2iDSyocf.jpg'),
-                    ),
-                    SizedBox(
-                      width: 15,
-                    ),
-                    Text('Write your comment ...'),
-                  ],
-                ),
-                Expanded(
-                  child: InkWell(
-                    onTap: () {},
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.favorite_border,
-                          size: 15,
-                          color: Colors.grey,
-                        ),
-                        Text('200',
-                            style: Theme.of(context)
-                                .textTheme
-                                .caption
-                                ?.copyWith(color: Colors.grey)),
-                      ],
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Container(
+                width: double.infinity,
+                height: 1,
+                color: Colors.grey[400],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 5),
+              child: Row(
+                children: [
+                  Row(
+                    // crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      CircleAvatar(
+                        radius: 16,
+                        backgroundImage: NetworkImage(
+                            'https://as1.ftcdn.net/v2/jpg/02/96/20/94/1000_F_296209436_rSsK1SYwSv1NuKVxQXF0aAht2iDSyocf.jpg'),
+                      ),
+                      SizedBox(
+                        width: 15,
+                      ),
+                      Text('Write your comment ...'),
+                    ],
+                  ),
+                  Spacer(),
+                  Expanded(
+                    child: InkWell(
+                      onTap: () {},
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Icon(
+                            Icons.favorite_border,
+                            size: 20,
+                            color: Colors.red[900],
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text('LIKE',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .caption
+                                  ?.copyWith(color: Colors.grey)),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
