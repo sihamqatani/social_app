@@ -30,7 +30,8 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
           email: email,
           phone: phone,
           uId: value.user!.uid,
-          isEmailVerified: false);
+          isEmailVerified: false,
+          image: '');
       // emit(SocialRegisterSuccessState());
     }).catchError((error) {
       print("firebaseerror${error.toString()}");
@@ -43,13 +44,16 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
       required String email,
       required phone,
       required String uId,
-      required bool isEmailVerified}) {
+      bool? isEmailVerified,
+      String? image}) {
     SocialUserModel userModel = SocialUserModel(
-        name: name,
-        email: email,
-        phone: phone,
-        uId: uId,
-        isEmailVerified: isEmailVerified);
+      name: name,
+      email: email,
+      phone: phone,
+      uId: uId,
+      image: 'https://image.freepik.com/free-photo/cheerful-curly-business-girl-wearing-glasses_176420-206.jpg',
+      isEmailVerified: false,
+    );
     FirebaseFirestore.instance
         .collection('Users')
         .doc(uId)
