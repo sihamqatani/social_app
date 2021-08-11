@@ -39,6 +39,8 @@ class SocialApp extends StatelessWidget {
         theme: themeApp,
         darkTheme: darkThemeApp,
         home: startWidget,
+
+        // home: SettingScreen(),
       ),
     );
   }

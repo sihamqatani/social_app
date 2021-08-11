@@ -26,12 +26,12 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
       print(value.user?.email);
       print('the User UId::${value.user!.uid}');
       createUser(
-          name: name,
-          email: email,
-          phone: phone,
-          uId: value.user!.uid,
-          isEmailVerified: false,
-          image: '');
+        name: name,
+        email: email,
+        phone: phone,
+        uId: value.user!.uid,
+        isEmailVerified: false,
+      );
       // emit(SocialRegisterSuccessState());
     }).catchError((error) {
       print("firebaseerror${error.toString()}");
@@ -39,20 +39,24 @@ class SocialRegisterCubit extends Cubit<SocialRegisterStates> {
     });
   }
 
-  void createUser(
-      {required String name,
-      required String email,
-      required phone,
-      required String uId,
-      bool? isEmailVerified,
-      String? image}) {
+  void createUser({
+    required String name,
+    required String email,
+    required phone,
+    required String uId,
+    bool? isEmailVerified,
+  }) {
     SocialUserModel userModel = SocialUserModel(
       name: name,
       email: email,
       phone: phone,
       uId: uId,
-      image: 'https://image.freepik.com/free-photo/cheerful-curly-business-girl-wearing-glasses_176420-206.jpg',
+      image:
+          'https://image.freepik.com/free-photo/modern-stylish-muslim-woman-hijab-leather-jacket-black-abaya-walking-city-street-talking-smartphone_285396-9431.jpg',
+      cover:
+          'https://image.freepik.com/free-photo/pink-tree-nami-island-korea_335224-522.jpg',
       isEmailVerified: false,
+      bio: 'write your bio...',
     );
     FirebaseFirestore.instance
         .collection('Users')

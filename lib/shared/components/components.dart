@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 //import 'package:fluttertoast/fluttertoast.dart';
 //import 'package:shop01_app/modules/login_screen/shop_login_screen.dart';
 //import 'package:shop01_app/shared/network/local/cash_helper.dart';
@@ -25,6 +26,22 @@ void navigateAndFinish(context, widget) {
       textColor: Colors.white,
       fontSize: 16.0);
 }*/
+PreferredSizeWidget defaultAppbar(
+    {required BuildContext context, String? title, List<Widget>? action}) {
+  return AppBar(
+    titleSpacing: 5,
+    title: Text(title!),
+    leading: IconButton(
+      icon: Icon(
+        FontAwesomeIcons.arrowLeft,
+      ),
+      onPressed: () {
+        Navigator.pop(context);
+      },
+    ),
+    actions: action,
+  );
+}
 
 enum ToastColorstate { SUCCESS, ERROR, WARNING }
 Color chooseToastColor(ToastColorstate state) {
