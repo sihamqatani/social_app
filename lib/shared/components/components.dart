@@ -103,6 +103,7 @@ Widget defaultFormField(
         bool isClickable = true,
         void Function(String)? onPressed}) =>
     TextFormField(
+      style: TextStyle(color: Colors.amber[900]),
       controller: controller,
       keyboardType: type,
       obscureText: isPassword,
@@ -115,6 +116,7 @@ Widget defaultFormField(
         labelText: label,
         prefixIcon: Icon(
           prefix,
+          color: Colors.amber[900],
         ),
         suffixIcon: suffix != null
             ? IconButton(

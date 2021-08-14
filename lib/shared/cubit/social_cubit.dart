@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:social_app/chats/chat_screen.dart';
 import 'package:social_app/models/social_user_model.dart';
 import 'package:social_app/modules/feeds/feeds.dart';
@@ -29,6 +32,37 @@ class SocialCubit extends Cubit<SocialStates> {
     } else {
       currentIndex = index;
       emit(SocialBottomNavState());
+    }
+  }
+
+  File? image;
+  final picker = ImagePicker();
+
+  Future getImage() async {
+    final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      image = File(pickedFile.path);
+      emit(SocialProfileImagePickedSuccesState());
+    } else {
+      print('No image selected.');
+      emit(SocialProfileImagePickedErrorState());
+    }
+  }
+
+  File? coverImage;
+  final coverPicker = ImagePicker();
+
+  Future getCoverImage() async {
+    final pickedCoverFile =
+        await coverPicker.getImage(source: ImageSource.gallery);
+
+    if (pickedCoverFile != null) {
+      coverImage = File(pickedCoverFile.path);
+      emit(SocialCoverImagePickedSuccesState());
+    } else {
+      print('No image selected.');
+      emit(SocialCoverImagePickedErrorState());
     }
   }
 

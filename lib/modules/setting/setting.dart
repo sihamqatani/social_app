@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:social_app/modules/edit_profile/edit_profile_screen.dart';
+import 'package:social_app/shared/components/components.dart';
 import 'package:social_app/shared/cubit/Social_state.dart';
 import 'package:social_app/shared/cubit/social_cubit.dart';
 import 'package:social_app/shared/themes/theme.dart';
@@ -139,7 +141,9 @@ class SettingScreen extends StatelessWidget {
                   )),
                   SizedBox(width: 5),
                   OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        navigateTo(context, EditProfileScreen());
+                      },
                       child: Icon(
                         FontAwesomeIcons.edit,
                         size: 15,
