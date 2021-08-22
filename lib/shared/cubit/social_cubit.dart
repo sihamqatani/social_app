@@ -12,6 +12,7 @@ import 'package:social_app/modules/setting/setting.dart';
 import 'package:social_app/modules/users/users.dart';
 import 'package:social_app/shared/constants/constants.dart';
 import 'package:social_app/shared/cubit/Social_state.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class SocialCubit extends Cubit<SocialStates> {
   SocialCubit() : super(SocialInitialState());
@@ -76,5 +77,8 @@ class SocialCubit extends Cubit<SocialStates> {
       print(error.toString());
       emit(SocialGetUserErrorState(error: error));
     });
+  }
+  void uploadProfileImage(){
+    firebase_storage.firebase_storage.instance.ref().child('Users/${Url.file( image.path.segmentPath.last)}').putFile(image);
   }
 }
