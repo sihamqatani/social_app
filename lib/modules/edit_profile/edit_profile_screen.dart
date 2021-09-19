@@ -9,8 +9,9 @@ import 'package:social_app/shared/cubit/social_cubit.dart';
 import 'package:social_app/shared/themes/theme.dart';
 
 class EditProfileScreen extends StatelessWidget {
-  var nameController = TextEditingController();
-  var bioController = TextEditingController();
+  late var nameController = TextEditingController();
+  late var bioController = TextEditingController();
+  late var phoneController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +23,18 @@ class EditProfileScreen extends StatelessWidget {
         File? coverImage = SocialCubit.get(context).coverImage;
         nameController.text = userModel!.name;
         bioController.text = userModel.bio;
+        phoneController.text = userModel.phone;
 
         return Scaffold(
           appBar:
               defaultAppbar(context: context, title: 'Edit Profile', action: [
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                SocialCubit.get(context).updateUser(
+                    name: nameController.text,
+                    phone: phoneController.text,
+                    bio: bioController.text);
+              },
               child: Text('Update'),
             ),
             SizedBox(
@@ -37,6 +44,12 @@ class EditProfileScreen extends StatelessWidget {
           body: SingleChildScrollView(
             child: Column(
               children: [
+                if (state is SocialUpatUserLoadingState)
+                  LinearProgressIndicator(),
+                if (state is SocialUpatUserLoadingState)
+                  SizedBox(
+                    height: 10.0,
+                  ),
                 Container(
                   height: 180,
                   alignment: AlignmentDirectional.bottomCenter,
@@ -54,7 +67,7 @@ class EditProfileScreen extends StatelessWidget {
                               decoration: BoxDecoration(
                                   image: DecorationImage(
                                       image: coverImage == null
-                                          ? NetworkImage(userModel.cover)
+                                          ? NetworkImage(userModel.cover!)
                                           : FileImage(coverImage)
                                               as ImageProvider,
                                       // 'https://image.freepik.com/free-photo/pink-tree-nami-island-korea_335224-522.jpg'),
@@ -105,6 +118,57 @@ class EditProfileScreen extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 10),
+                if (SocialCubit.get(context).image != null ||
+                    SocialCubit.get(context).coverImage != null)
+                  Row(
+                    children: [
+                      if (SocialCubit.get(context).image != null)
+                        Expanded(
+                          child: Column(
+                            children: [
+                              TextButton(
+                                  onPressed: () {
+                                    SocialCubit.get(context).uploadProfileImage(
+                                        name: nameController.text,
+                                        phone: phoneController.text,
+                                        bio: bioController.text);
+                                  },
+                                  child: Text('Upload Profile Image')),
+                              if (state is SocialUpatUserLoadingState)
+                                SizedBox(
+                                  height: 6,
+                                ),
+                              if (state is SocialUpatUserLoadingState)
+                                LinearProgressIndicator(),
+                            ],
+                          ),
+                        ),
+                      SizedBox(
+                        width: 10,
+                      ),
+                      if (SocialCubit.get(context).coverImage != null)
+                        Expanded(
+                          child: Column(
+                            children: [
+                              TextButton(
+                                  onPressed: () {
+                                    SocialCubit.get(context).uploadCoverImage(
+                                        name: nameController.text,
+                                        phone: phoneController.text,
+                                        bio: bioController.text);
+                                  },
+                                  child: Text('Upload Cover Image')),
+                              if (state is SocialUpatUserLoadingState)
+                                SizedBox(
+                                  height: 6,
+                                ),
+                              if (state is SocialUpatUserLoadingState)
+                                LinearProgressIndicator(),
+                            ],
+                          ),
+                        ),
+                    ],
+                  ),
                 Padding(
                   padding: const EdgeInsets.all(10.0),
                   child: defaultFormField(
@@ -127,6 +191,18 @@ class EditProfileScreen extends StatelessWidget {
                       },
                       label: 'Bio',
                       prefix: Icons.info_rounded),
+                ),
+                SizedBox(height: 10),
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: defaultFormField(
+                      controller: phoneController,
+                      type: TextInputType.text,
+                      validate: (String? value) {
+                        if (value!.isEmpty) return 'You must enter your phone';
+                      },
+                      label: 'phone',
+                      prefix: Icons.phone_android),
                 )
               ],
             ),

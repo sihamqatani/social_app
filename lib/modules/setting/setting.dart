@@ -31,7 +31,7 @@ class SettingScreen extends StatelessWidget {
                         width: double.infinity,
                         decoration: BoxDecoration(
                             image: DecorationImage(
-                                image: NetworkImage(userModel!.cover),
+                                image: NetworkImage('${userModel?.cover}'),
                                 // 'https://image.freepik.com/free-photo/pink-tree-nami-island-korea_335224-522.jpg'),
                                 fit: BoxFit.cover),
                             borderRadius: BorderRadius.only(
@@ -43,7 +43,7 @@ class SettingScreen extends StatelessWidget {
                       radius: 62,
                       backgroundColor: themeApp.scaffoldBackgroundColor,
                       child: CircleAvatar(
-                        backgroundImage: NetworkImage(userModel.image!),
+                        backgroundImage: NetworkImage('${userModel?.image}'),
                         // 'https://image.freepik.com/free-photo/modern-stylish-muslim-woman-hijab-leather-jacket-black-abaya-walking-city-street-talking-smartphone_285396-9431.jpg'),
                         radius: 60,
                         // backgroundColor: Theme.of(context).scaffoldBackgroundColor,
@@ -53,9 +53,10 @@ class SettingScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 5),
-              Text(userModel.name, style: themeApp.textTheme.subtitle1),
+              Text('${userModel?.name}', style: themeApp.textTheme.subtitle1),
               SizedBox(height: 5),
-              Text(userModel.bio, style: Theme.of(context).textTheme.caption),
+              Text('${userModel?.bio}',
+                  style: Theme.of(context).textTheme.caption),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: Row(

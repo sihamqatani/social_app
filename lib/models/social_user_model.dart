@@ -5,7 +5,7 @@ class SocialUserModel {
   late String uId;
   late bool isEmailVerified;
   String? image;
-  late String cover;
+  String? cover;
   late String bio;
 
   SocialUserModel(
