@@ -96,8 +96,8 @@ class SocialCubit extends Cubit<SocialStates> {
     // if (socialAllUsersModel.length == 0)
     FirebaseFirestore.instance.collection('Users').get().then((value) {
       value.docs.forEach((element) {
-        if (element.data()['uId'] != model!.uId)
-          socialAllUsersModel.add(SocialUserModel.fromJson(element.data()));
+        //if (element.data()['uId'] != model!.uId)
+        socialAllUsersModel.add(SocialUserModel.fromJson(element.data()));
       });
       emit(SocialGetAllUserSuccessState());
     }).catchError((error) {
@@ -260,8 +260,9 @@ class SocialCubit extends Cubit<SocialStates> {
       value.docs.forEach((element) {
         element.reference.collection('Likes').get().then((value) {
           likes.add(value.docs.length);
-          commentsNo.add(value.docs.length);
+
           posts.add(PostModel.fromJson(element.data()));
+          print(posts.length);
           postId.add(element.id);
         }).catchError((onError) {});
       });
@@ -309,7 +310,7 @@ class SocialCubit extends Cubit<SocialStates> {
         .collection('Posts')
         .doc(postId)
         .collection('comments')
-        .doc(model?.uId)
+        .doc()
         .set({'text': text, 'postId': postId, 'image': model?.image}).then(
             (value) {
       emit(SocialCommentsPostSuccessState());
@@ -321,26 +322,32 @@ class SocialCubit extends Cubit<SocialStates> {
 
   CommentsModel? commentModel;
   //Get Comment......
-  void getComments() {
-    /* FirebaseFirestore.instance.collection('Post').get().then((value) {
+  void getComments(String postId) {
+    FirebaseFirestore.instance
+        .collection('Posts')
+        .doc(postId)
+        .collection('comments')
+        .get()
+        .then((value) {
       value.docs.forEach((element) {
-       element.reference.collection('comments').get().then((value) {
-          commentModel = CommentsModel.fromJson(element.data());
-          print('the model of commnt${commentModel.toString()}');
-          print(element.data().toString());
-          comments.add(commentModel!);
-        }).catchError((onError) {});
-     }
-     
-      );
+        commentsNo.add(value.docs.length);
+        commentModel = CommentsModel.fromJson(element.data());
+        print('the model of commnt${commentModel.toString()}');
+        comments.add(commentModel!);
+        print(element.data().toString());
+      });
       emit(SocialGetCommentSuccessState());
+      print('the model of commnt ${commentModel.toString()}');
       print(comments.toString());
       print('comment get');
     }).catchError((error) {
-      emit(SocialGetCommentErrorState(error: error));
+      emit(SocialGetCommentErrorState(error: error.toString()));
       print('error get comment${error.toString()}');
-    });*/
-    FirebaseFirestore.instance.collection('comments').get().then((value) {
+    });
+
+    // *****************************************************
+
+    /*FirebaseFirestore.instance.collection('comments').get().then((value) {
       value.docs.forEach((element) {
         commentModel = CommentsModel.fromJson(element.data());
         comments.add(commentModel!);
@@ -353,7 +360,7 @@ class SocialCubit extends Cubit<SocialStates> {
     }).catchError((error) {
       emit(SocialGetCommentErrorState(error: error));
       print('get all comment errors ${error.toString()}');
-    });
+    });*/
   }
 
 //get message in chat.......

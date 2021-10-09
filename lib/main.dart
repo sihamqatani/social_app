@@ -56,7 +56,6 @@ class SocialApp extends StatelessWidget {
       create: (context) => SocialCubit()
         ..getUserData()
         ..getPosts()
-        ..getComments()
         ..getAllUsers(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

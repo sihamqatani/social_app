@@ -334,7 +334,8 @@ Widget buildPostItem(PostModel post, context, index) {
                       ),
                       SizedBox(width: 5),
                       Text(
-                          '${SocialCubit.get(context).commentsNo[index]} comment',
+                          // '//${SocialCubit.get(context).commentsNo[index]}
+                          '1 comment',
                           style: Theme.of(context)
                               .textTheme
                               .caption
@@ -372,6 +373,8 @@ Widget buildPostItem(PostModel post, context, index) {
                     InkWell(
                       child: Text('Write your comment ...'),
                       onTap: () {
+                        SocialCubit.get(context).getComments(
+                            SocialCubit.get(context).postId[index]);
                         print('booooo');
                         show(context, index);
 
